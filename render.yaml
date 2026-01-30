@@ -1,0 +1,28 @@
+# Render blueprint example for ESGI Node.js app
+# Adapt names, branch and plan as needed before linking on Render
+blueprint_version: 1
+
+services:
+  - type: web_service
+    name: esgi-node-app
+    env: node
+    region: eu
+    branch: main
+    buildCommand: npm install
+    startCommand: node ./bin/www
+    # optional: health check path
+    health_check_path: / 
+
+databases:
+  - type: postgres
+    name: esgi-db
+    region: eu
+    plan: starter
+    disk_gb: 10
+
+# Notes:
+# - Replace `branch` with the branch you will push (main/master).
+# - Render's UI will create connection environment variables for the DB.
+#   After linking the blueprint, check the service env vars in Render
+#   to use the DB connection string (e.g. DATABASE_URL or a Render-provided var).
+# - Tweak `plan` and `disk_gb` according to your needs and Render offerings.
